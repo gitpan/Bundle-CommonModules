@@ -13,7 +13,7 @@
 #     ABSTRACT_FROM => q[lib/Bundle/CommonModules.pm]
 #     AUTHOR => q[Kevin Rice <krice2@localdomain>]
 #     NAME => q[Bundle::CommonModules]
-#     PREREQ_PM => { File::Spec=>q[9999.0] }
+#     PREREQ_PM => { File::Spec=>q[1.0] }
 #     VERSION_FROM => q[lib/Bundle/CommonModules.pm]
 
 # --- MakeMaker post_initialize section:
@@ -53,11 +53,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Bundle::CommonModules
 NAME_SYM = Bundle_CommonModules
-VERSION = 1.01
+VERSION = 1.02
 VERSION_MACRO = VERSION
-VERSION_SYM = 1_01
+VERSION_SYM = 1_02
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 1.01
+XS_VERSION = 1.02
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -178,12 +178,9 @@ PERL_ARCHIVE       =
 PERL_ARCHIVE_AFTER = 
 
 
-TO_INST_PM = lib/Bundle/CommonModules.pm \
-	lib/Bundle/CommonModules.pm.bak
+TO_INST_PM = lib/Bundle/CommonModules.pm
 
-PM_TO_BLIB = lib/Bundle/CommonModules.pm.bak \
-	blib/lib/Bundle/CommonModules.pm.bak \
-	lib/Bundle/CommonModules.pm \
+PM_TO_BLIB = lib/Bundle/CommonModules.pm \
 	blib/lib/Bundle/CommonModules.pm
 
 
@@ -251,7 +248,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Bundle-CommonModules
-DISTVNAME = Bundle-CommonModules-1.01
+DISTVNAME = Bundle-CommonModules-1.02
 
 
 # --- MakeMaker macro section:
@@ -472,7 +469,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
 	$(NOECHO) $(ECHO) 'name:               Bundle-CommonModules' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version:            1.01' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version:            1.02' >> META_new.yml
 	$(NOECHO) $(ECHO) 'abstract:           Perl extension for assisting automatic installation of common Perl modules.' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - Kevin Rice <krice2@localdomain>' >> META_new.yml
@@ -481,7 +478,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    File::Spec:  9999.0' >> META_new.yml
+	$(NOECHO) $(ECHO) '    File::Spec:  1.0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'no_index:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    directory:' >> META_new.yml
 	$(NOECHO) $(ECHO) '        - t' >> META_new.yml
@@ -780,12 +777,12 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="1,01,0,0">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="1,02,0,0">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <TITLE>$(DISTNAME)</TITLE>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Perl extension for assisting automatic installation of common Perl modules.</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Kevin Rice &lt;krice2@localdomain&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '        <DEPENDENCY NAME="File-Spec" VERSION="9999,0,0,0" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <DEPENDENCY NAME="File-Spec" VERSION="1,0,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <OS NAME="$(OSNAME)" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-thread-multi-5.8" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
@@ -797,7 +794,6 @@ ppd :
 
 pm_to_blib : $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', '\''$(PM_FILTER)'\'')' -- \
-	  lib/Bundle/CommonModules.pm.bak blib/lib/Bundle/CommonModules.pm.bak \
 	  lib/Bundle/CommonModules.pm blib/lib/Bundle/CommonModules.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
